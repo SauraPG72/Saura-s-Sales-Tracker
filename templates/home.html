@@ -1,0 +1,126 @@
+{% extends "base.html" %}
+{% block content %}
+
+<h1>You are in</h1>
+<span class="kanban">
+    <header>
+        Cold
+    </header>
+    <header>
+        Left voicemail
+    </header>
+    <header>
+        Connected / Presented
+    </header>
+    <header>
+        Place on marketing list
+    </header>
+    <header>
+        Set Meeting
+    </header>
+    <header>
+        Sent proposal
+    </header>
+    <header>
+        Onboarded
+    </header>
+    <section class="collumn" id="0">
+        {% for client_dict in list_of_client_dicts %}
+            {% if client_dict['status'] == 0 %}
+                <form method="GET" action="/home/{{client_dict['client_id']}}">
+                    <div class="client">
+                        <h3>{{ client_dict['name'] }}</h3>
+                        <h4>{{ client_dict['company'] }}</h4>
+                        <input type="submit" value="more">
+                    </div>
+                </form>
+            {% endif %}
+        {% endfor %}
+    </section>
+
+    <section class="collumn" id="1">
+        {% for client_dict in list_of_client_dicts %}
+        {% if client_dict['status'] == 1 %}
+            <form method="GET" action="/home/{{client_dict['client_id']}}">
+                <div class="client">
+                    <h3>{{ client_dict['name'] }}</h3>
+                    <h4>{{ client_dict['company'] }}</h4>
+                    <input type="submit" value="more">
+                </div>
+            </form>
+        {% endif %}
+    {% endfor %}
+    </section>
+
+    <section class="collumn" id="2">
+        {% for client_dict in list_of_client_dicts %}
+        {% if client_dict['status'] == 2 %}
+            <form method="GET" action="/home/{client_dict['name']}">
+                <div class="client">
+                    <h3>{{ client_dict['name'] }}</h3>
+                    <h4>{{ client_dict['company'] }}</h4>
+                    <input type="submit" value="more">
+                </div>
+            </form>
+        {% endif %}
+    {% endfor %}
+    </section>
+
+    <section class="collumn" id="3">
+        {% for client_dict in list_of_client_dicts %}
+        {% if client_dict['status'] == 3 %}
+            <form method="GET" action="/home/{client_dict['name']}">
+                <div class="client">
+                    <h3>{{ client_dict['name'] }}</h3>
+                    <h4>{{ client_dict['company'] }}</h4>
+                    <input type="submit" value="more">
+                </div>
+            </form>
+        {% endif %}
+    {% endfor %}
+    </section>
+
+    <section class="collumn" id="4">
+        {% for client_dict in list_of_client_dicts %}
+        {% if client_dict['status'] == 4 %}
+            <form method="GET" action="/home/{client_dict['name']}">
+                <div class="client">
+                    <h3>{{ client_dict['name'] }}</h3>
+                    <h4>{{ client_dict['company'] }}</h4>
+                    <input type="submit" value="more">
+                </div>
+            </form>
+        {% endif %}
+    {% endfor %}
+    </section>
+
+    <section class="collumn" id="5">
+        {% for client_dict in list_of_client_dicts %}
+        {% if client_dict['status'] == 5 %}
+            <form method="GET" action="/home/{client_dict['name']}">
+                <div class="client">
+                    <h3>{{ client_dict['name'] }}</h3>
+                    <h4>{{ client_dict['company'] }}</h4>
+                    <input type="submit" value="more">
+                </div>
+            </form>
+        {% endif %}
+    {% endfor %}
+    </section>
+
+    <section class="collumn" id="6">
+        {% for client_dict in list_of_client_dicts %}
+        {% if client_dict['status'] == 6 %}
+            <form method="GET" action="/home/{client_dict['name']}">
+                <div class="client">
+                    <h3>{{ client_dict['name'] }}</h3>
+                    <h4>{{ client_dict['company'] }}</h4>
+                    <input type="submit" value="more">
+                </div>
+            </form>
+        {% endif %}
+    {% endfor %}
+    </section>
+</span>
+
+{% endblock %}

@@ -1,0 +1,47 @@
+/* * {
+    border: 2px solid blue;
+} */
+/* Doing some styling for the nav bar */
+ul {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    width: 40%;
+}
+ul > .navlist {
+    list-style: none;
+}
+/* doing some styling for each collumn representing the KanBan view */
+.kanban {
+    display: grid;
+    grid-template-rows: 50px 300px;
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr; 
+    width: 1500px;
+
+}
+
+header {
+    border: 2px solid red;
+    background-color: azure;
+}
+section {
+    border: 2px solid blue;
+    background-color: beige;
+    height: 1000px
+}
+
+/* doing some styling for the divs that have the client info data */
+.client {
+    border: 2px dashed brown;
+    max-width: 200px;
+    max-height: 200px;
+    margin: 5px;
+}
+
+/* doing some styling for the about/more page */
+.more {
+    background-color: grey;
+    height: 400px;
+    width: 400px;
+    margin: 0 auto;
+}

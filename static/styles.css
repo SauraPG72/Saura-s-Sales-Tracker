@@ -17,9 +17,7 @@ ul > .navlist {
     grid-template-rows: 50px 300px;
     grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr; 
     width: 1500px;
-
 }
-
 header {
     border: 2px solid red;
     background-color: azure;
@@ -34,7 +32,7 @@ section {
 .client {
     border: 2px dashed brown;
     max-width: 200px;
-    max-height: 200px;
+    height: 300px;
     margin: 5px;
 }
 

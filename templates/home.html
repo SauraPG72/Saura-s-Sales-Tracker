@@ -32,6 +32,9 @@
                         <h3>{{ client_dict['name'] }}</h3>
                         <h4>{{ client_dict['company'] }}</h4>
                         <input type="submit" value="more">
+                        </br>
+                        <input type="submit" value="move-up" formaction="/progress/{{client_dict['client_id']}}">
+                        
                     </div>
                 </form>
             {% endif %}
@@ -46,7 +49,9 @@
                     <h3>{{ client_dict['name'] }}</h3>
                     <h4>{{ client_dict['company'] }}</h4>
                     <input type="submit" value="more">
-                </div>
+                    </br>
+                    <input type="submit" value="back"  formaction="/moveback/{{client_dict['client_id']}}">
+                </div> 
             </form>
         {% endif %}
     {% endfor %}

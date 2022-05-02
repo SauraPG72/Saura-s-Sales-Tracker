@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+{% block content %}
+<form action="/added-contact" method="get">
+    <h1>Add a new contact</h1>
+    <input type="text" placeholder="Name" name="name">
+    <input type="text" placeholder="Company Name" name="company">
+    <input type="text" placeholder="Phone" name="phone">
+    <input type="email" placeholder="Email" name="email">
+    <input type="suburb" placeholder="Suburb" name="suburb">
+    <select name="status" placeholder="status of lead">
+        <option value=0>Cold</option>
+        <option value=1>Left Voicemail</option>
+        <option value=2>Connected / Presented</option>
+        <option value=3>Place on marketing list</option>
+        <option value=4>Set Meeting</option>
+        <option value=5>Sent Proposal</option>
+        <option value=6>Onboarded</option>
+    </select>
+    <input type="submit">
+        
+
+
+</form>
+{% endblock %}

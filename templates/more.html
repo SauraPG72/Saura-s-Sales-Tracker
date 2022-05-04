@@ -7,6 +7,21 @@
     
     <a href="/home"> Back to home page </a>
 
+    <form method="POST" action="/make_note/{{ result[0][1] }}/{{ result[0][0] }}">
+        <input id="note" name="note" type="text">
+        <input type="submit" value="make note">
+    </form>
+{% for note in notes[::-1] %}
+    <div>
+        {{  note[4] }}
+        {{note[3]}}
+    </br>
+    </div>
+
+{% endfor %}
+
+
+
 </section>
 
 

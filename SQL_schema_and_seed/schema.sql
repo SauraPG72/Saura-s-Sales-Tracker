@@ -20,3 +20,11 @@ CREATE TABLE clients(
     suburb TEXT NOT NULL, 
     status INTEGER
 );
+
+CREATE TABLE notes(
+    note_id SERIAL PRIMARY KEY,
+    user_id INTEGER REFERENCES users(id),
+    client_id INTEGER REFERENCES clients(client_id),
+    note_s TEXT NOT NULL,
+    date_time TIMESTAMP DEFAULT NOW()
+);

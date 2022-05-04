@@ -43,3 +43,8 @@ section {
     width: 400px;
     margin: 0 auto;
 }
+
+#note {
+    height: fit-content;
+    width: 80%;
+}

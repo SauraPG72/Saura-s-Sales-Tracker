@@ -1,3 +1,4 @@
+from crypt import methods
 from flask import Flask, render_template, request, session, redirect
 import psycopg2
 import bcrypt
@@ -40,18 +41,22 @@ def login():
 # Line 37 to the next comment structures out a command sent to postgres. it calls a function defined above for ease of use database_connect(), and has been used to verify if you are a valid or invalid user. 
     email = request.form.get('email')
     password = request.form.get('password')
-    result = database_connect('SELECT id, email, name, password FROM users', [])
-    dict_of_users = {}
-    for user in result:
-        password_hash = user[3]
-        dict_of_users[user[1]] = [user[2], password_hash]
-# using bcrypt we can check if the stored and encrypted pw is the same as what you have placed.    
+    result = database_connect('SELECT id, email, name, password FROM users WHERE email = %s', [email])
+    if result == []:
+        return redirect('/')
+    
+    # for user in result:
+    #     password_hash = user[3]
+    #     dict_of_users[user[1]] = [user[2], password_hash]
+    password_hash = result[0][3]
+    print(password_hash)
+# using bcrypt we can check if the stored and encrypted pw is the same as what you have placed.   
     valid = bcrypt.checkpw(password.encode(), password_hash.encode())
 # logic for if you are let in, or if you are not let in. 
-    if email in dict_of_users and valid == True:
+    if valid == True:
         session['email'] = email
         # this line is relevant for CRUD operations made to your clients database
-        session['unique_id_number'] = user[0]
+        session['unique_id_number'] = result[0][0]
         return redirect('/home')
     else:
         return redirect('/')
@@ -74,17 +79,28 @@ def logged_in():
             client_dict['status'] = client[7]
             list_of_client_dicts.append(client_dict)
         
-        # print (list_of_client_dicts)
+        
         return render_template('home.html', list_of_client_dicts=list_of_client_dicts)
     else:
-        return redirect('/')
+        return redirect('/make_note')
 # defining a new app route for when I want to find out more about a certain person.  
 @app.route('/home/<id>')
 def findmore(id):
     # print(id)
     result = database_connect('SELECT client_id, user_id, client_name, company, phone, email, suburb, status FROM clients WHERE client_id = %s', [id])
-    # print(result)
-    return render_template('more.html', result=result)
+    client_id = result[0][0]
+    notes = database_connect('SELECT note_id, user_id, client_id, note_s, date_time FROM notes WHERE client_id = %s', [client_id])
+    print(notes)
+
+    return render_template('more.html', result=result, notes=notes)
+@app.route('/make_note/<user>/<client>', methods=['POST'])
+def make_note(user, client):
+    notes = request.form.get('note')
+    database_connect('INSERT into notes (user_id, client_id, note_s) VALUES(%s, %s, %s)', [user, client, notes])
+    
+    return redirect(f"/home/{client}")
+    
+
 # defining a new app route for moving a certain contact to the next collumn 
 @app.route('/progress/<id>')
 def progress_right(id):
@@ -116,7 +132,11 @@ def adding_contact():
     name = request.args.get('name')
     company = request.args.get('company')
     phone = request.args.get('phone')
-    phone_number = int(phone)
+    if len(phone) == 10:
+        phone_number = int(phone)
+    else:
+        return redirect('/add-new-contact')
+    
     email = request.args.get('email')
     suburb = request.args.get('suburb')
     status = request.args.get('status')
@@ -143,6 +163,26 @@ def adding_contact():
 def clear_and_logout():
     session.clear()
     return redirect('/')
+
+# creating a sign up page for someone to add themselves as a user to my app
+@app.route('/signup')
+def sign_up():
+    return render_template('signup.html')
+
+@app.route('/signedup', methods=['POST'])
+def client_signed():
+    name = request.form.get('name')
+    password_one = request.form.get('password_1')
+    password_two = request.form.get('password_2')
+    email = request.form.get('email')
+
+    if len(name) >= 4 and password_one == password_two and email:
+        password_hash = bcrypt.hashpw(password_one.encode(), bcrypt.gensalt()).decode()
+        print(password_hash)
+        user_make = database_connect('INSERT into users (email, name, password) VALUES (%s, %s, %s)', [email, name, password_hash])
+        return "Big success"
+    else:
+        return redirect('/')
 
 if __name__ == '__main__':
     app.run(debug=True)

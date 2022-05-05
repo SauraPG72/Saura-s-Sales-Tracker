@@ -2,8 +2,11 @@ from crypt import methods
 from flask import Flask, render_template, request, session, redirect
 import psycopg2
 import bcrypt
-app = Flask(__name__)
 import os
+import csv
+
+app = Flask(__name__)
+
 # for making this relevant to my Heroku
 DATABASE_URL = os.environ.get('DATABASE_URL', 'dbname=project2')
 SECRET_KEY = os.environ.get('SECRET_KEY', 'kdcnbiowe913827fd')
@@ -11,7 +14,7 @@ app.config['SECRET_KEY'] = SECRET_KEY
 
 # connect to database code function, which I will use exrttensively later on. 
 def database_connect(command, args=[]):
-    conn = psycopg2.connect('dbname=project2')
+    conn = psycopg2.connect(DATABASE_URL)
     curs = conn.cursor()
     
     if "SELECT" in command:
@@ -118,10 +121,7 @@ def move_back(id):
     new_status = int(result[0][0]) - 1
     new_command = database_connect('UPDATE clients SET status = %s WHERE client_id = %s;', [new_status, id])
     return redirect('/home')
-
     
-    
-
 # this is the code for now adding a new contact, it's a form that simply will append itself as a list to the back of your existing database. 
 @app.route('/add-new-contact')
 def add_new_contact():

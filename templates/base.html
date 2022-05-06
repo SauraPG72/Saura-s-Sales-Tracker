@@ -8,12 +8,16 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='/styles.css') }}"/>
 </head>
 <body>
-<h1> Welcome back</h1>
+<span class="head">
+    <img src="{{ url_for('static', filename='images/favicon.png') }}">
+    <h1> Welcome back to Trekka™</h1>
+</span>
+
     <nav>
         <ul>
-            <li class="navlist"><a href="/logout">Log out</li></a></li>
-            <li class="navlist"><a href="/add-new-contact">Add contact</a></li>
-            <li class="navlist"><a href="/invoice">Make Invoice</a></li>   
+            <li class="navlist"><a href="/logout">Log out &#128274;</li></a></li>
+            <li class="navlist"><a href="/add-new-contact">Add contact &#128107;</a></li>
+            <li class="navlist"><a href="/invoice">Make Invoice &#127903;</a></li>   
         </ul>
     </nav>
     {% block content %}

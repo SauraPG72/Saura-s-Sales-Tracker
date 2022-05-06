@@ -1,7 +1,8 @@
 {% extends "base.html" %}
 {% block content %}
-<form action="/added-contact" method="get">
-    <h1>Add a new contact</h1>
+<span class="newcontact">
+<form action="/added-contact" method="get" id="onebyone">
+    <h1>Add a new contact:</h1>
     <input type="text" placeholder="Name" name="name">
     <input type="text" placeholder="Company Name" name="company">
     <input type="text" placeholder="Phone" name="phone">
@@ -17,11 +18,14 @@
         <option value=6>Onboarded</option>
     </select>
     <input type="submit">
-</br>
-    <a href="/home">Go back home</a>
+  
 </form>
-<form action="/addmultiple" method="post" enctype="multipart/form-data">
+<form action="/addmultiple" method="post" enctype="multipart/form-data" id="multiple">
+    <h1>Add multple contacts:</h1>
     Upload a csv file: <input type='file' name='file'>
     <input type='submit' value='Upload'>
 </form>
+<a href="/home">Back to home page &#127968;</a>
+</span>
+
 {% endblock %}

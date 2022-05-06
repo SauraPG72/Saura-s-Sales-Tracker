@@ -1,40 +1,91 @@
-{% if invoice == '0' %}
-<h1> Tax Invoice </h1>
-<h2> Invoice From: {{ you }}</h2>
-<h2>Invoice to: {{ company }} ABN: {{ abn }}</h2>
-<h2>Contact: {{ name }}</h2>
-<div>
-    <h2> Description: {{ description }} </h2>
-    <h2> Net Amount: $ {{ net }} </h2>
-    <h2> GST $ {{ gst }}</h2>
-    <h2> Total: $ {{ amount }}</h2>
-</div>
-<h1> Funds banked: </h1>
-<div>
-    <h3>{{ you }}</h3>
-    <h3> {{ bsb }}</h3>
-    <h3>{{ account_number }}</h3>
-    <h3>{{ invoice_num }}  </h3>
-</div>
+<body>
+    {% if invoice == '0' %}
+    <h1>Tax Invoice </h1>
+    <h2> Invoice From: {{ you }}</h2>
+    <h2>Invoice to: {{ company }} ABN: {{ abn }}</h2>
+    <h2>Contact: {{ name }}</h2>
+    <div class="tableone">
+        <h3>Description:</h3>
+        <h3> {{ description }} </h3>
+        <h3> Net Amount: </h3>
+        <h3> $ {{ net }} </h3>
+        <h3>GST: </h3>
+        <h3>${{ gst }}</h3>
+        <h3> Total: </h3>
+        <h3>${{ amount }}.00</h3>
+    </div>
+    <h1> Funds requested: </h1>
+    <div class="tabletwo">
+        <h3>Company: </h3>
+        <h3>{{ company }}</h3>
+        <h3>BSB: </h3>
+        <h3> {{ bsb }}</h3>
+        <h3>Account number: </h3>
+        <h3>{{ account_number }}</h3>
+        <h3>Invoice Number</h3>
+        <h3> #{{ invoice_num }} </h3>
+        <h3>Total transferred: </h3>
+        <h3>${{ amount }}.00</h3>
+    </div>
 
-Kind regards!
+    Kind regards!
 
-{% else %}
-<h1> Recepient created tax invoice: </h1>
-<h2>Invoice From: {{ company }} ABN: {{ abn }}</h2>
-<h2>Contact: {{ name }}</h2>
-<h2> Invoice To: {{ you }}</h2>
-<div>
-    <h2> Description: {{ description }} </h2>
-    <h2> Net Amount: $ {{ net }} </h2>
-    <h2> GST: $ {{ gst }}</h2>
-    <h2> Total: $ {{ amount }}</h2>
-</div>
-<h1> Funds banked: </h1>
-<div>
-    <h3>{{ company }}</h3>
-    <h3> {{ bsb }}</h3>
-    <h3>{{ account_number }}</h3>
-    <h3> #{{ invoice_num }} </h3>
-</div>
-{% endif %}
+    {% else %}
+    <h1> Recepient created tax invoice: </h1>
+    <h2>Invoice From: {{ company }} ABN: {{ abn }}</h2>
+    <h2>Contact: {{ name }}</h2>
+    <h2> Invoice To: {{ you }}</h2>
+    <div class="tableone">
+        <h3>Description:</h3>
+        <h3> {{ description }} </h3>
+        <h3> Net Amount: </h3>
+        <h3> $ {{ net }} </h3>
+        <h3>GST: </h3>
+        <h3>${{ gst }}</h3>
+        <h3> Total: </h3>
+        <h3>${{ amount }}.00</h3>
+    </div>
+    <h1> Funds banked: </h1>
+    <div class="tabletwo">
+        <h3>Company: </h3>
+        <h3>{{ company }}</h3>
+        <h3>BSB: </h3>
+        <h3> {{ bsb }}</h3>
+        <h3>Account number: </h3>
+        <h3>{{ account_number }}</h3>
+        <h3>Invoice Number</h3>
+        <h3> #{{ invoice_num }} </h3>
+        <h3>Total transferred: </h3>
+        <h3>${{ amount }}.00</h3>
+    </div>
+    {% endif %}
+</body>
+<style>
+    @import url('https://fonts.googleapis.com/css2?family=Work+Sans:wght@200&display=swap');
+    body {
+        font-family: 'Work Sans', sans-serif;
+        text-align: center;
+        max-width: 40%;
+    }
+    h1 {
+        text-decoration: underline;
+    }
+    .bold {
+        font-family: strong;
+    }
+    .tableone {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+    }
+    .tableone > * {
+        border: 2px dashed black
+    }
+    .tabletwo {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+    }
+    .tabletwo > * {
+        border: 2px dashed black
+    }
+
+</style>

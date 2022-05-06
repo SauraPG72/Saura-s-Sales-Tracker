@@ -1,7 +1,22 @@
-/* * {
-    border: 2px solid blue;
-} */
-/* Doing some styling for the nav bar */
+@import url('https://fonts.googleapis.com/css2?family=Work+Sans:wght@200&display=swap');
+body { 
+    font-family: 'Work Sans', sans-serif;
+    background: whitesmoke;
+	background-size: 400% 400%;
+	animation: gradient 15s ease infinite;
+	height: 100vh;
+}
+.head {
+    display: flex;
+    align-items: center;
+}
+.head > img {
+    height: 80px;
+}
+a {
+    color: black;
+    text-decoration: none;
+}
 ul {
     display: flex;
     flex-direction: row;
@@ -10,41 +25,184 @@ ul {
 }
 ul > .navlist {
     list-style: none;
+    transition: transform 250ms;
+}
+ul>.navlist:hover {
+    transform: translateY(-10px);
 }
 /* doing some styling for each collumn representing the KanBan view */
 .kanban {
     display: grid;
-    grid-template-rows: 50px 300px;
+    grid-template-rows: 50px 1fr;
     grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr; 
-    width: 1500px;
+    
 }
 header {
-    border: 2px solid red;
-    background-color: azure;
+    border: 2px dashed black;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 5px;
+    padding: 10px;
+    min-width: 300px;
 }
-section {
-    border: 2px solid blue;
-    background-color: beige;
-    height: 1000px
+#zero{ 
+    background-color: #85DBD9;
+    transition-property: all 400ms;
+    margin: 5px;
+    padding: 10px;
 }
-
+#zero:hover{
+    background-color: transparent;
+}
+#one {
+    background-color: #5DA5A4;
+    transition-property: all 400ms;
+}
+#one:hover{
+    background-color: transparent;
+}
+#two {
+    background-color: #7A72BD;
+    transition-property: all 400ms;
+}
+#two:hover{
+    background-color: transparent;
+}
+#three {
+    background-color: #FDE9FF;
+    transition-property: all 400ms;
+}
+#three:hover{
+    background-color: transparent;
+}
+#four {
+    background-color: #FFF7E7;
+    transition-property: all 400ms;
+}
+#four:hover{
+    background-color: transparent;
+}
+#five {
+    background-color: #F0644C;
+    transition-property: all 400ms;
+}
+#five:hover{
+    background-color: transparent;
+}
+#six {
+    transition-property: all 400ms;
+    background-color: #CB1F53;
+}
+#six:hover{
+    background-color: transparent;
+}
 /* doing some styling for the divs that have the client info data */
 .client {
-    border: 2px dashed brown;
+    border: 2px dashed grey;
     max-width: 200px;
-    height: 300px;
+    max-height: 300px;
     margin: 5px;
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    transition-property: all 250ms;
+    min-width: 300px;
 }
-
+.client:hover {
+    background-color: transparent;
+}
+.client > .button {
+    display: flex;
+    justify-content: space-between;
+    background-color: transparent;
+}
+.client > .button > input {
+    background-color: transparent;
+    text-decoration: none;
+    border: transparent;
+    font-size: large;
+    transition: transform 250ms;
+}
+.client > .button > input:hover {
+    transform: translateY(-10px);
+}
 /* doing some styling for the about/more page */
 .more {
-    background-color: grey;
+    background-color: transparent;
     height: 400px;
     width: 400px;
     margin: 0 auto;
+    padding: 15px;
+    transition-property: all 250ms;
 }
-
+.more:hover {
+    border: 2px dashed grey;
+}
+.more > div {
+    overflow-y: scroll;
+}
+.more > form {
+    padding: 10px;
+    margin: 5px;
+}
+.more > form > input {
+    text-decoration: none;
+    font-family: 'Work Sans', sans-serif;
+    background-color: transparent;
+    margin: 5px;
+    padding: 10px;
+    border-radius: 10px;
+}
 #note {
     height: fit-content;
     width: 80%;
+}
+/* New contact addition page */
+.newcontact {
+    display:flex;
+    flex-direction: column;
+    position: absolute;
+    top:50%;
+    left: 50%;
+    transform: translate(-50% , -50%)
+}
+.newcontact > #onebyone > *{
+    text-decoration: none;
+    font-family: 'Work Sans', sans-serif;
+    background-color: transparent;
+    margin: 5px;
+    padding: 10px;
+    border-radius: 10px;
+}
+.newcontact > #multiple > input {
+    text-decoration: none;
+    font-family: 'Work Sans', sans-serif;
+    background-color: transparent;
+    margin: 5px;
+    padding: 10px;
+    border-radius: 10px;
+}
+
+/* Now for the form where you create invoices */
+h2 {
+    text-align: center;
+}
+#invoice {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    max-width: 60%;
+    top:50%;
+    left: 50%;
+    transform: translate(-50% , -50%);
+    position: absolute;
+}
+#invoice > * {
+    text-decoration: none;
+    font-family: 'Work Sans', sans-serif;
+    background-color: transparent;
+    margin: 5px;
+    padding: 10px;
+    border-radius: 10px;
 }

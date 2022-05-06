@@ -2,10 +2,14 @@
 {% block content %}
 
 <section class="more">
-    <h3>Name: {{ result[0][2] }}</h3>
-    <h3>Company: {{ result[0][3] }}</h3>
+    <p>Name: {{ result[0][2] }}</p>
+    <p>Company: {{ result[0][3] }}</p>
+    <p>Phone: +61 {{ result[0][4] }}</p>
+    <p>Email: <a href="{{ result[0][5] }}">{{ result[0][5] }}</a></p> 
+    <p>Suburb: {{ result[0][6] }}</p>
     
-    <a href="/home"> Back to home page </a>
+    
+    
 
     <form method="POST" action="/make_note/{{ result[0][1] }}/{{ result[0][0] }}">
         <input id="note" name="note" type="text">
@@ -13,10 +17,11 @@
     </form>
 {% for note in notes[::-1] %}
     <div>
-        {{  note[4] }}
+        {{  note[4].strftime('%Y-%m-%d')}}:
         {{note[3]}}
     </br>
     </div>
+    <a href="/home"> Back to home page &#127968; </a>
 
 {% endfor %}
 

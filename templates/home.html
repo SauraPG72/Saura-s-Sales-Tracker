@@ -4,125 +4,160 @@
 <h1>You are in</h1>
 <span class="kanban">
     <header>
-        Cold
+        Cold:	&#129398;
     </header>
     <header>
-        Left voicemail
+        Voicemail: 	&#128006;
     </header>
     <header>
-        Connected / Presented
+        Connected/Presented: &#9742;
     </header>
     <header>
-        Place on marketing list
+        Stay in touch: &#128172;
     </header>
     <header>
-        Set Meeting
+        Set Meeting: &#129309;
     </header>
     <header>
-        Sent proposal
+        Sent proposal: &#128221;
     </header>
     <header>
-        Onboarded
+        Onboarded: 	&#128293;
     </header>
-    <section class="collumn" id="0">
+    <section class="collumn" >
         {% for client_dict in list_of_client_dicts %}
             {% if client_dict['status'] == 0 %}
-                <form method="GET" action="/home/{{client_dict['client_id']}}">
-                    <div class="client">
-                        <h3>{{ client_dict['name'] }}</h3>
-                        <h4>{{ client_dict['company'] }}</h4>
+            <form method="GET" action="/home/{{client_dict['client_id']}}">
+                <div class="client" id="zero">
+                    <h3>{{ client_dict['name'] }}</h3>
+                    <h4>{{ client_dict['company'] }}</h4>
+                    <h4>+61{{ client_dict['phone'] }}</h4>
+                    <h4><a href="mailto:{{ client_dict['email'] }}">{{ client_dict['email'] }}</a></h4> 
+                    <span class="button">
                         <input type="submit" value="more">
-                        </br>
-                        <input type="submit" value="move-up" formaction="/progress/{{client_dict['client_id']}}">
-                        
-                    </div>
-                </form>
+                        <input type="submit" value="&#8594;" formaction="/progress/{{client_dict['client_id']}}">
+                    </span>
+                </div> 
+            </form>
             {% endif %}
         {% endfor %}
     </section>
 
-    <section class="collumn" id="1">
+    <section class="collumn" >
         {% for client_dict in list_of_client_dicts %}
         {% if client_dict['status'] == 1 %}
             <form method="GET" action="/home/{{client_dict['client_id']}}">
-                <div class="client">
+                <div class="client" id="one">
                     <h3>{{ client_dict['name'] }}</h3>
                     <h4>{{ client_dict['company'] }}</h4>
-                    <input type="submit" value="more">
-                    </br>
-                    <input type="submit" value="back"  formaction="/moveback/{{client_dict['client_id']}}">
+                    <h4>+61{{ client_dict['phone'] }}</h4>
+                    <h4><a href="mailto:{{ client_dict['email'] }}">{{ client_dict['email'] }}</a></h4> 
+                    <span class="button">
+                        <input type="submit" value="&#8592;"  formaction="/moveback/{{client_dict['client_id']}}">
+                        <input type="submit" value="more">
+                        <input type="submit" value="&#8594;" formaction="/progress/{{client_dict['client_id']}}">
+                    </span>
                 </div> 
             </form>
         {% endif %}
     {% endfor %}
     </section>
 
-    <section class="collumn" id="2">
+    <section class="collumn">
         {% for client_dict in list_of_client_dicts %}
         {% if client_dict['status'] == 2 %}
-            <form method="GET" action="/home/{client_dict['name']}">
-                <div class="client">
-                    <h3>{{ client_dict['name'] }}</h3>
-                    <h4>{{ client_dict['company'] }}</h4>
+        <form method="GET" action="/home/{{client_dict['client_id']}}">
+            <div class="client" id="two">
+                <h3>{{ client_dict['name'] }}</h3>
+                <h4>{{ client_dict['company'] }}</h4>
+                <h4>+61{{ client_dict['phone'] }}</h4>
+                <h4><a href="mailto:{{ client_dict['email'] }}">{{ client_dict['email'] }}</a></h4> 
+                <span class="button">
+                    <input type="submit" value="&#8592;"  formaction="/moveback/{{client_dict['client_id']}}">
                     <input type="submit" value="more">
-                </div>
-            </form>
+                    <input type="submit" value="&#8594;" formaction="/progress/{{client_dict['client_id']}}">
+                </span>
+            </div> 
+        </form>
         {% endif %}
     {% endfor %}
     </section>
 
-    <section class="collumn" id="3">
+    <section class="collumn">
         {% for client_dict in list_of_client_dicts %}
         {% if client_dict['status'] == 3 %}
-            <form method="GET" action="/home/{client_dict['name']}">
-                <div class="client">
-                    <h3>{{ client_dict['name'] }}</h3>
-                    <h4>{{ client_dict['company'] }}</h4>
+        <form method="GET" action="/home/{{client_dict['client_id']}}">
+            <div class="client" id="three">
+                <h3>{{ client_dict['name'] }}</h3>
+                <h4>{{ client_dict['company'] }}</h4>
+                <h4>+61{{ client_dict['phone'] }}</h4>
+                <h4><a href="mailto:{{ client_dict['email'] }}">{{ client_dict['email'] }}</a></h4> 
+                <span class="button">
+                    <input type="submit" value="&#8592;"  formaction="/moveback/{{client_dict['client_id']}}">
                     <input type="submit" value="more">
-                </div>
-            </form>
+                    <input type="submit" value="&#8594;" formaction="/progress/{{client_dict['client_id']}}">
+                </span>
+            </div> 
+        </form>
         {% endif %}
     {% endfor %}
     </section>
 
-    <section class="collumn" id="4">
+    <section class="collumn" >
         {% for client_dict in list_of_client_dicts %}
         {% if client_dict['status'] == 4 %}
-            <form method="GET" action="/home/{client_dict['name']}">
-                <div class="client">
-                    <h3>{{ client_dict['name'] }}</h3>
-                    <h4>{{ client_dict['company'] }}</h4>
+        <form method="GET" action="/home/{{client_dict['client_id']}}">
+            <div class="client" id="four">
+                <h3>{{ client_dict['name'] }}</h3>
+                <h4>{{ client_dict['company'] }}</h4>
+                <h4>+61{{ client_dict['phone'] }}</h4>
+                <h4><a href="mailto:{{ client_dict['email'] }}">{{ client_dict['email'] }}</a></h4> 
+                <span class="button">
+                    <input type="submit" value="&#8592;"  formaction="/moveback/{{client_dict['client_id']}}">
                     <input type="submit" value="more">
-                </div>
-            </form>
+                    <input type="submit" value="&#8594;" formaction="/progress/{{client_dict['client_id']}}">
+                </span>
+            </div> 
+        </form>
         {% endif %}
     {% endfor %}
     </section>
 
-    <section class="collumn" id="5">
+    <section class="collumn" >
         {% for client_dict in list_of_client_dicts %}
         {% if client_dict['status'] == 5 %}
-            <form method="GET" action="/home/{client_dict['name']}">
-                <div class="client">
-                    <h3>{{ client_dict['name'] }}</h3>
-                    <h4>{{ client_dict['company'] }}</h4>
+        <form method="GET" action="/home/{{client_dict['client_id']}}">
+            <div class="client" id="five">
+                <h3>{{ client_dict['name'] }}</h3>
+                <h4>{{ client_dict['company'] }}</h4>
+                <h4>+61{{ client_dict['phone'] }}</h4>
+                <h4><a href="mailto:{{ client_dict['email'] }}">{{ client_dict['email'] }}</a></h4> 
+                <span class="button">
+                    <input type="submit" value="&#8592;"  formaction="/moveback/{{client_dict['client_id']}}">
                     <input type="submit" value="more">
-                </div>
-            </form>
+                    <input type="submit" value="&#8594;" formaction="/progress/{{client_dict['client_id']}}">
+                </span>
+            </div> 
+        </form>
         {% endif %}
     {% endfor %}
     </section>
 
-    <section class="collumn" id="6">
+    <section class="collumn" >
         {% for client_dict in list_of_client_dicts %}
         {% if client_dict['status'] == 6 %}
-            <form method="GET" action="/home/{client_dict['name']}">
-                <div class="client">
-                    <h3>{{ client_dict['name'] }}</h3>
-                    <h4>{{ client_dict['company'] }}</h4>
+        <form method="GET" action="/home/{{client_dict['client_id']}}">
+            <div class="client" id="six">
+                <h3>{{ client_dict['name'] }}</h3>
+                <h4>{{ client_dict['company'] }}</h4>
+                <h4>+61{{ client_dict['phone'] }}</h4>
+                <h4><a href="mailto:{{ client_dict['email'] }}">{{ client_dict['email'] }}</a></h4> 
+                <span class="button">
+                    <input type="submit" value="&#8592;"  formaction="/moveback/{{client_dict['client_id']}}">
                     <input type="submit" value="more">
-                </div>
-            </form>
+                </span>
+            </div> 
+        </form>
         {% endif %}
     {% endfor %}
     </section>

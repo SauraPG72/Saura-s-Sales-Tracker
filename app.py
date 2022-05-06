@@ -1,9 +1,13 @@
 from crypt import methods
-from flask import Flask, render_template, request, session, redirect
+from typing import ClassVar
+from flask import Flask, render_template, request, session, redirect, make_response
 import psycopg2
 import bcrypt
 import os
 import csv
+from csv import reader
+from io import TextIOWrapper
+import pdfkit
 
 app = Flask(__name__)
 
@@ -68,7 +72,8 @@ def login():
 @app.route('/home')
 def logged_in():
     if session:
-        result = database_connect('SELECT client_id, user_id, client_name, company, phone, email, suburb, status FROM clients', [])
+        user_id = session.get('unique_id_number')
+        result = database_connect('SELECT client_id, user_id, client_name, company, phone, email, suburb, status FROM clients WHERE user_id = %s', [user_id])
         list_of_client_dicts = []
 # reformatting my SQL call results, so that I can access them more easily
         for client in result:
@@ -141,22 +146,41 @@ def adding_contact():
     suburb = request.args.get('suburb')
     status = request.args.get('status')
     
-
     if len(name) > 4 and len(company) > 4 and len(phone) == 10 and email and len(suburb) > 4 and status:
         print(f"{name} {company} {phone} {email} {suburb} {status}")
-
 # now establish that the user is the actual user for this deal 
-
         user_email = session.get('email')
         result = database_connect('SELECT id, name, email, password from users WHERE email = %s', [user_email])
         user_id = result[0][0]
 # now that user is established, we can do the insert operation in excel. 
         insert_new_client = database_connect('INSERT INTO clients (user_id, client_name, company, phone, email, suburb, status) VALUES (%s, %s, %s, %s, %s, %s, %s)', [user_id, name, company, phone_number, email, suburb, status])
-        return redirect('/home')
-    
+        return redirect('/home')    
     else:
         return redirect('/add-new-contact')
+# now some code for uploading a CSV File
+@app.route('/addmultiple', methods=['POST'])
+def read_csv():
+    csv_file = request.files['file']
+    csv_file = TextIOWrapper(csv_file, encoding='utf-8')
+    csv_string = csv_file.read()
+    csv_list = csv_string.split(",,")
+    converted_list = []
+    for element in csv_list[0:(len(csv_list) - 1)]:
+        converted_list.append(element.strip())
+    # print(converted_list)
 
+    for element in converted_list:
+        client = element.split(",")
+        user_id = session.get('unique_id_number')
+        name = client[0]
+        company = client[1]
+        phone = int(client[2])
+        email = client[3]
+        suburb = client[4]
+        status = 0
+        insert_new_client = database_connect('INSERT INTO clients (user_id, client_name, company, phone, email, suburb, status) VALUES (%s, %s, %s, %s, %s, %s, %s)', [user_id, name, company, phone, email, suburb, status])
+
+    return redirect('/home')
 
 # just creating a little log out page now that will redirect me to log in. 
 @app.route('/logout')

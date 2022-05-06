@@ -38,10 +38,12 @@ def database_connect(command, args=[]):
         curs.execute(f"{command}", args)
         conn.commit()
         conn.close()
+
 # This is the home page, basic login page structurted as a form that wil send a post request
 @app.route('/')
 def hello():
     return render_template('index.html')
+
 # This is the result of the log in details entered, it will connect to user and password table and let you in or keep you out.
 @app.route('/youre-in', methods=['POST'])
 def login():
@@ -52,9 +54,6 @@ def login():
     if result == []:
         return redirect('/')
     
-    # for user in result:
-    #     password_hash = user[3]
-    #     dict_of_users[user[1]] = [user[2], password_hash]
     password_hash = result[0][3]
     print(password_hash)
 # using bcrypt we can check if the stored and encrypted pw is the same as what you have placed.   
@@ -75,7 +74,7 @@ def logged_in():
         user_id = session.get('unique_id_number')
         result = database_connect('SELECT client_id, user_id, client_name, company, phone, email, suburb, status FROM clients WHERE user_id = %s', [user_id])
         list_of_client_dicts = []
-# reformatting my SQL call results, so that I can access them more easily
+
         for client in result:
             client_dict = {}
             client_dict['client_id'] = client[0]
@@ -86,11 +85,10 @@ def logged_in():
             client_dict['suburb'] = client[6]
             client_dict['status'] = client[7]
             list_of_client_dicts.append(client_dict)
-        
-        
         return render_template('home.html', list_of_client_dicts=list_of_client_dicts)
     else:
         return redirect('/make_note')
+
 # defining a new app route for when I want to find out more about a certain person.  
 @app.route('/home/<id>')
 def findmore(id):
@@ -99,16 +97,15 @@ def findmore(id):
     client_id = result[0][0]
     notes = database_connect('SELECT note_id, user_id, client_id, note_s, date_time FROM notes WHERE client_id = %s', [client_id])
     print(notes)
-
     return render_template('more.html', result=result, notes=notes)
+
+# this will store the note in the database, making it viewable for the client 
 @app.route('/make_note/<user>/<client>', methods=['POST'])
 def make_note(user, client):
     notes = request.form.get('note')
     database_connect('INSERT into notes (user_id, client_id, note_s) VALUES(%s, %s, %s)', [user, client, notes])
-    
     return redirect(f"/home/{client}")
     
-
 # defining a new app route for moving a certain contact to the next collumn 
 @app.route('/progress/<id>')
 def progress_right(id):
@@ -119,6 +116,7 @@ def progress_right(id):
     if new_status < 7:
         new_command = database_connect('UPDATE clients SET status = %s WHERE client_id = %s;', [new_status, id])
         return redirect('/home')
+
 # now defining the opposite movement, whereby if it is moving back a stage
 @app.route('/moveback/<id>')
 def move_back(id):
@@ -165,10 +163,10 @@ def read_csv():
     csv_string = csv_file.read()
     csv_list = csv_string.split(",,")
     converted_list = []
+    
     for element in csv_list[0:(len(csv_list) - 1)]:
         converted_list.append(element.strip())
-    # print(converted_list)
-
+    
     for element in converted_list:
         client = element.split(",")
         user_id = session.get('unique_id_number')
@@ -207,6 +205,41 @@ def client_signed():
         return "Big success"
     else:
         return redirect('/')
+
+# last application: invoice maker 
+@app.route('/invoice')
+def invoice_form():
+    return render_template('invoice.html')
+
+# normal tax invoice maker
+@app.route('/taxinvoice', methods=['POST'])
+def generate_invoice():
+    invoice = request.form.get('status')
+    you = request.form.get('your_company')
+    name = request.form.get('name')
+    company = request.form.get('company')
+    description = request.form.get('description')
+    abn = request.form.get('ABN')
+    bsb = request.form.get('BSB')
+    amount_not = request.form.get('amount')
+    amount = round((int(amount)), 2)
+    net = round((int(amount)/11 * 10), 2)
+    gst = round((int(amount)/11), 2)
+    account_number = request.form.get('accountnum')
+    invoice_num = request.form.get('invoice')
+    print(invoice)
+    print(net)
+    print(gst)
+    rendered = render_template('makeinvoice.html', invoice=invoice, you=you, name=name, company=company, abn=abn, bsb=bsb,account_number=account_number, invoice_num=invoice_num, description=description, amount=amount, net=net, gst=gst)
+
+    pdf = pdfkit.from_string(rendered, False)
+
+    response = make_response(pdf)
+    response.headers['Content-Type'] = 'application/pdf'
+    response.headers['Content-Disposition'] = 'attachment; filename=output.pdf'
+
+    return response
+
 
 if __name__ == '__main__':
     app.run(debug=True)

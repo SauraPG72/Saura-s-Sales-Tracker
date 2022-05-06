@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+{% block content %}
+
+<h2>
+    Tax Invoice Maker:
+</h2>
+    <form action="/taxinvoice" method="POST">
+        <select name="status" placeholder="Type of invoice:">
+            <option value=0>Standard Tax-Invoice</option>
+            <option value=1>Recepient Created Tax Invoice</option>
+        </select>
+        <input type="text" name="your_company" placeholder="Your details">
+        <input type="text" name="name" placeholder="name">
+        <input type="text" name="company" placeholder="company">
+        <input type="text" name="ABN" placeholder="ABN">
+        <input type="number" name="amount" placeholder="$Amount">
+        <input type="text" name="description" placeholder="description">
+        <input type="text" name="BSB" placeholder="BSB">
+        <input type="text" name="accountnum" placeholder="account number">
+        <input type="number" name="invoice" placeholder="invoice number">
+        <input type="submit" value="Make Invoice">
+    </form>
+{% endblock %}

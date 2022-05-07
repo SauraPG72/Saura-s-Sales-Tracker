@@ -9,3 +9,5 @@
   - activate venv, activate flask 
   
   - run app and check if it works 
+
+  -- trivial change
